@@ -34,15 +34,20 @@ function App() {
       email: formValues.email,
       role: formValues.role,
     };
-  
 
-    setMemberList([...memberList, newMember ]);
-    // console.log(memberList)
-    // debugger;
+    if (!newMember.name || !newMember.email || !newMember.role) {
+      alert("Please Fill In All Fields");
+      return;
+    }
+
+    setMemberList([...memberList, newMember]);
+
+    setFormValues(initialFormValues);
   };
 
   return (
     <div className='App'>
+      <Form values={formValues} update={updateForm} submit={submitForm} />
       <div className='memberList'>
         {memberList.map((member, idx) => {
           return (
@@ -53,7 +58,6 @@ function App() {
           );
         })}
       </div>
-      <Form values={formValues} update={updateForm} submit={submitForm} />
     </div>
   );
 }
